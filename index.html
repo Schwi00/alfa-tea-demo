@@ -455,7 +455,7 @@
     font-family:var(--font-mono); font-size:14px; color:var(--ink);
     white-space:nowrap;
   }
-  .menu-item.featured{ background:rgba(98,201,232,.06); padding-left:16px; padding-right:16px; border-radius:4px; }
+  .menu-item.featured{ /* SIGNATURE marker handled inline; no row background */ }
   .menu-item.highlighted{
     background:rgba(98,201,232,.18);
     animation: pulse 2.2s ease-out;
@@ -464,9 +464,52 @@
     0%{ background:rgba(98,201,232,.45); }
     100%{ background:rgba(98,201,232,.06); }
   }
-  @media (max-width:560px){
-    .menu-item{ grid-template-columns: 84px 1fr; grid-template-rows:auto auto; }
-    .menu-item .price{ grid-column:2; grid-row:2; justify-self:start; }
+  @media (max-width:680px){
+    /* === Plan B: vertical card layout on mobile === */
+    .menu-list{ gap: 0; }
+
+    .menu-item{
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-template-rows: auto auto;
+      grid-template-areas:
+        "thumb thumb"
+        "info  price";
+      gap: 14px 12px;
+      padding: 18px 0 24px;
+      align-items: start;
+    }
+    .menu-item:first-child{ border-top:1px solid var(--line); }
+
+    .menu-item .thumb{
+      grid-area: thumb;
+      aspect-ratio: 16/9;
+      width: 100%;
+      border-radius: 12px;
+    }
+    .menu-item .info{
+      grid-area: info;
+      min-width: 0;
+    }
+    .menu-item .info h4{
+      font-size: 17px;
+      margin-bottom: 6px;
+      line-height: 1.25;
+    }
+    .menu-item .info p{
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--ink-3);
+      max-width: none;
+    }
+    .menu-item .price{
+      grid-area: price;
+      font-size: 15px;
+      color: var(--ink);
+      align-self: start;
+      padding-top: 2px;
+      white-space: nowrap;
+    }
   }
   @media (min-width: 960px){
     .menu-list{ grid-template-columns: 1fr 1fr; column-gap: clamp(32px, 4vw, 64px); }
@@ -975,7 +1018,7 @@
           <div class="meta">
             <div class="left">
               <div class="col"><span class="eyebrow" data-i18n="hero.meta1.l">Origin</span><strong data-i18n="hero.meta1.v">Burnaby, BC</strong></div>
-              <div class="col"><span class="eyebrow" data-i18n="hero.meta2.l">Opened</span><strong>2026</strong></div>
+              <div class="col"><span class="eyebrow" data-i18n="hero.meta2.l">Opened</span><strong>Apr 2026</strong></div>
               <div class="col"><span class="eyebrow" data-i18n="hero.meta3.l">Next shops</span><strong data-i18n="hero.meta3.v">Richmond · DT · Lougheed</strong></div>
             </div>
             <div class="scrollhint"><span data-i18n="hero.scroll">scroll</span><span class="line"></span></div>
